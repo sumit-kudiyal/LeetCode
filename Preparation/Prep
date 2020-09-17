@@ -1,0 +1,98 @@
+Day 1:
+
+1. Find the duplicate:  Start the question by using sorting and find duplicate by iterationg over array. TC: O(nlogn), SC: O(n/1)
+                        Second we could go for "set" approach and find the duplicate. TC: O(n), SC: O(n).
+                        Last and optimised approach use "Floyd Tortoise Hare Algo" for cycle detection. TC: O(n), SC: O(1).
+
+
+2.Sort an array of 0’s 1’s 2’s without using extra space or sorting algo:
+                    -> Start by sorting the array. TC:O(nlogn), SC:O(1).
+                    -> Use count sort and then iterate to fill the values. TC:O(n)+O(n)= O(2n)=O(n), SC:O(1).
+                    -> Use Dutch National Flag Algo. Most efficient and does work well. TC: O(n), SC:O(1). Does work in single pass.
+
+
+3.Find the repeating and the missing:
+
+                    -> Using Sorting.
+                    -> Use count array.
+                    ->Sum Method. Find sum of all numbers and make eqn as S-x+y , where S: sum of all numbers, x:missing number, y:duplicate number.
+                    -> Using XOR. It includes several steps they are:
+                        1.XOR all a[i]= x
+                        2.x^(1^2^...^n)
+                        3.x^y = num
+                        4.Separate in 2 buckets.
+                        5.Separate (1..n) in 2 basket.
+                        6.XOR both basket to find number.
+
+4. Merge two sorted arrays in O(1) space
+
+
+
+5.Maximum Subarray Sum:
+                    -> Use iteration for 3 times it will give O(n^3) complexity.
+                    -> We can reduce one loop to get n^2 complexity.
+                    -> We can further optimie it by using Kadane's Algo to get it to O(n).
+
+6. Merge Intervals:
+                    ->Sort and compare the intervals.
+
+
+ Day 2:
+
+7. Set Zeroes:
+            -> First we will try to apply brute force by iterating over 2d array and setting all values in the respective column or row as any value such as -1 or infinity. Then replcae all those values with 0.
+            -> Other approach is to take two array and store the index of all rows and columns if zero found set the value in row and col array as 0.
+            -> Most optimal approach would be to instead of taking two other array we could store it in first row and first column thus reducing space complexity.
+
+
+
+8.Pascal Triangle : -> Easy just start by filling first column and last column iteratively with 1 and for remaining fill with sum of the cell above it and the cell left of its upper cell.
+
+
+9. Next Permutation: 1.Find the largest index k such that nums[k] < nums[k + 1]. If no such index exists, just reverse nums and done.
+                      2.Find the largest index l > k such that nums[k] < nums[l].
+                      3.Swap nums[k] and nums[l].
+                      4.Reverse the sub-array nums[k + 1:].
+
+10. Inversion of Array (Using Merge Sort) : -> Use merge sort and invert the array accordingly.
+
+11.Stock Buy and Sell : -> Implement the solution using simple DP approach.
+                        -> Now optimize the space further by converting the DP table into variables to store values.
+
+12.Rotate Matrix : -> It can be done by reversing the matrix and then find the transpose of same or vice versa.
+
+Day 3:
+
+13. Search in 2D matrix: -> One solution is simple in O(n^2) iteration traverse through entire matrix.
+                         -> Since our matrix is sorted we can optimize it further.
+                         -> We can use Binary search in this which is very imp technique to reduce tc.
+
+14. Pow(X,n) : One simple method is to use pow() funtion.
+              -> But the efficient one would be to go recursively and use divide and conquer to
+              divide the value of n into halves each time and find the solution.
+
+
+15/16. Majority Element: -> try using going for two pass.
+                  -> Now try using hashmap and check count greater than n/2 or n/3 as per requirement.
+                  -> The most efficient way is to use Boyre Moore's Voting Algorithm.
+
+
+17.Grid Uique Path: -> Try using the solution with DP;
+                 -> We can now optimize the space in DP by using two vector instead of 2D matrix.
+                 -> Further we can optimize space by storing the values in variables.
+                 -> One other efficient method is using Combination formulae and deducing number of unique paths by the formulae.
+
+18. Reverse Pairs (Leetcode) : Hard need to redo and learn in a clearer way.
+
+Day 4:
+
+19. 2 Sum: -> Use brute force approach to iterate over an array and find the solution in O(n^2) complexity.
+           -> To optimize the approach further we can use a hash table and find the solution as per hashtable.
+
+
+20. 4 Sum: -> First step is to sort the array and after that we use approach as:
+              Sort + TwoPointer + Searching via 2 Sum approach in remaining array.
+              Here we need to check carefully for duplicate values, so we just need to pass through them carefully.
+
+
+
