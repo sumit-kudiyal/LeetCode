@@ -237,3 +237,248 @@ public:
     }
 
 };
+
+
+// 21. Longest Consequtive Sequence : Approach:
+/* 1. Use a hash map to store boundary information of consecutive sequence for each element;
+                                      there are 4 cases when a new element i reached:
+
+                                      neither i+1 nor i-1 has been seen: m[i]=1;
+                                      both i+1 and i-1 have been seen: extend m[i+m[i+1]] and m[i-m[i-1]] to each other;
+                                      only i+1 has been seen: extend m[i+m[i+1]] and m[i] to each other;
+                                      only i-1 has been seen: extend m[i-m[i-1]] and m[i] to each other.
+*/
+
+int longestConsecutive(vector<int> &num) {
+    unordered_map<int, int> m;
+    int r = 0;
+    for (int i : num) {
+        if (m[i]) continue;
+        r = max(r, m[i] = m[i + m[i + 1]] = m[i - m[i - 1]] = m[i + 1] + m[i - 1] + 1);
+        /*
+            for detailed explanation see the first comment at
+            https://leetcode.com/problems/longest-consecutive-sequence/discuss/41088/Possibly-shortest-cpp-solution-only-6-lines.
+            Here we are checking in array for both left side and right side if left side is not present we can start calculationg if right is present and left is also present then it will come in other longer seq so not required to calculate it over.
+        */
+    }
+    return r;
+}
+
+
+//22. Longest Subarray with 0 sum
+
+int maxLen(int arr[], int n)
+{
+    // Map to store the previous sums
+    unordered_map<int, int> presum;
+
+    int sum = 0; // Initialize the sum of elements
+    int max_len = 0; // Initialize result
+
+    // Traverse through the given array
+    for (int i = 0; i < n; i++) {
+        // Add current element to sum
+        sum += arr[i];
+
+        if (arr[i] == 0 && max_len == 0)
+            max_len = 1;
+        if (sum == 0)
+            max_len = i + 1;
+
+        // Look for this sum in Hash table
+        if (presum.find(sum) != presum.end()) {
+            // If this sum is seen before, then update max_len
+            max_len = max(max_len, i - presum[sum]);
+        }
+        else {
+            // Else insert this sum with index in hash table
+            presum[sum] = i;
+        }
+    }
+
+    return max_len;
+}
+
+//23.Count number of subarrays with given XOR:
+
+// Returns count of subarrays of arr with XOR
+// value equals to m
+long long subarrayXor(int arr[], int n, int m)
+{
+    long long ans = 0; // Initialize answer to be returned
+
+    // Create a prefix xor-sum array such that
+    // xorArr[i] has value equal to XOR
+    // of all elements in arr[0 ..... i]
+    int* xorArr = new int[n];
+
+    // Create map that stores number of prefix array
+    // elements corresponding to a XOR value
+    unordered_map<int, int> mp;
+
+    // Initialize first element of prefix array
+    xorArr[0] = arr[0];
+
+    // Computing the prefix array.
+    for (int i = 1; i < n; i++)
+        xorArr[i] = xorArr[i - 1] ^ arr[i];
+
+    // Calculate the answer
+    for (int i = 0; i < n; i++) {
+        // Find XOR of current prefix with m.
+        int tmp = m ^ xorArr[i];
+
+        // If above XOR exists in map, then there
+        // is another previous prefix with same
+        // XOR, i.e., there is a subarray ending
+        // at i with XOR equal to m.
+        ans = ans + ((long long)mp[tmp]);
+
+        // If this subarray has XOR equal to m itself.
+        if (xorArr[i] == m)
+            ans++;
+
+        // Add the XOR of this subarray to the map
+        mp[xorArr[i]]++;
+    }
+
+    // Return total count of subarrays having XOR of
+    // elements as given value m
+    return ans;
+}
+
+
+// Longest Substring Without Repeating Characters: Source Leetcode Prob No. 3
+
+int lengthOfLongestSubstring(string s) {
+        int n=s.size();
+        int start=-1,maxlen=0;
+        map<char,int> mp;
+
+        for(int i=0;i<n;i++)
+        {
+            if(mp.count(s[i])!=0)
+                start=max(start,mp[s[i]]);
+
+            mp[s[i]]=i;
+            maxlen=max(maxlen,i-start);
+
+        }
+        return maxlen;
+    }
+
+// Day 4 Completed.
+
+// Reverse a linked list :
+// Iterative Approach
+ListNode* reverseList(ListNode* head) {
+        if(head==NULL)
+            return head;
+        ListNode* temp=NULL;
+        ListNode* prev=NULL;
+        ListNode* curr=head;
+        while(curr)
+        {
+            temp=curr->next;
+            curr->next=prev;
+            prev=curr;
+            curr=temp;
+        }
+
+        head=prev;
+        return head;
+    }
+// Recursive approach
+ ListNode* reverseList(ListNode* head) {
+        if(head==NULL or head->next==NULL)
+            return head;
+
+        ListNode* x = reverseList(head->next);
+
+        head->next->next=head;
+        head->next = NULL;
+        return x;
+    }
+
+//Reversing a linked list from given position start and end:
+
+ListNode* reverseBetween(ListNode* head, int m, int n) {
+        if(head==NULL or m==n)
+            return head;
+        ListNode *dummy= new ListNode(0),*pre=dummy,*cur;
+        dummy->next= head;
+        for(int i=0;i<m-1;i++)
+            pre=pre->next;
+
+        cur=pre->next;
+        for(int i=0;i<n-m;i++){
+            ListNode *temp=pre-> next;
+            pre->next= cur->next;
+            cur->next = cur->next->next;
+            pre->next->next=temp;
+        }
+
+        return dummy->next;
+
+    }
+
+//26.  Find middle of Linked List:
+ListNode* middleNode(ListNode* head) {
+        ListNode *slow=head;
+        ListNode *fast=head;
+
+        while(fast && fast->next )
+        {
+            fast = fast->next->next;
+            slow = slow->next;
+        }
+
+        return slow;
+    }
+//27. Simple while loop for which the pointer will point to smaller values in both the list.
+
+//28. Optimized one pass approach for removing nth node from end.
+
+ListNode* removeNthFromEnd(ListNode* head, int n) {
+        ListNode *start=new ListNode(0);
+        start->next =head;
+        ListNode *fast=start;
+        ListNode *slow=start;
+        for(int i=1;i<=n+1;i++){
+            fast=fast->next;
+        }
+        while(fast){
+            fast=fast->next;
+            slow=slow->next;
+        }
+
+        slow->next= slow->next->next;
+        return start->next;
+    }
+
+
+//29. Delete Node from LL when a node value is given.
+void deleteNode(ListNode* node)
+    {
+            auto *n=node->next;
+           *node=*n;
+            delete n;
+
+    }
+
+//30. Add two numbers of LL:
+
+ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        ListNode res(0), *p =&res;
+        int c=0;
+        while(l1 or l2 or c){
+            if(l1) c += l1->val , l1=l1->next;
+            if(l2) c += l2->val,  l2=l2->next;
+            p->next = new ListNode(c%10);
+            c=c/10;
+            p=p->next;
+        }
+
+        return res.next;
+    }
+
