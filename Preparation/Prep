@@ -95,4 +95,77 @@ Day 4:
               Here we need to check carefully for duplicate values, so we just need to pass through them carefully.
 
 
+21. Longest Consecutive Sequence : -> Firstly we could go for brute force approach it will take n^3 tc.
+                                   -> Second method is to go for sorting and then iterate in order to get the sequence it will take nlogn+n time so tc:nlogn
+                                   -> The most optimal solution would be to use Bud Optimization and find the solution in O(n). The process is as follows:
+                                     1. Use a hash map to store boundary information of consecutive sequence for each element;
+                                      there are 4 cases when a new element i reached:
+
+                                      neither i+1 nor i-1 has been seen: m[i]=1;
+                                      both i+1 and i-1 have been seen: extend m[i+m[i+1]] and m[i-m[i-1]] to each other;
+                                      only i+1 has been seen: extend m[i+m[i+1]] and m[i] to each other;
+                                      only i-1 has been seen: extend m[i-m[i-1]] and m[i] to each other.
+
+22. Longest Subarray with 0 sum: -> Start with brute force to search the entire array it will take n^2 time.
+                                 -> We can use hash map and try to check at each step if sum is already present, if so calculate the diff bw the indexes.
+                                 -> Hash Table method will give us TC as O(n).
+
+
+23.Count number of subarrays with given XOR: -> First approach is to go brute force over the entire array two nested loops and find the xor for every elements. It will take n^2 tc.
+                                             -> The other optimized approach moves as:
+                                             1) Initialize ans as 0.
+                                             2) Compute xorArr, the prefix xor-sum array.
+                                             3) Create a map mp in which we store count of
+                                                all prefixes with XOR as a particular value.
+                                             4) Traverse xorArr and for each element in xorArr
+                                                (A) If m^xorArr[i] XOR exists in map, then
+                                                    there is another previous prefix with
+                                                    same XOR, i.e., there is a subarray ending
+                                                    at i with XOR equal to m. We add count of
+                                                    all such subarrays to result.
+                                                (B) If xorArr[i] is equal to m, increment ans by 1.
+                                                (C) Increment count of elements having XOR-sum
+                                                    xorArr[i] in map by 1.
+                                             5) Return ans.
+
+24.Longest substring without repeat:  -> Start with Brute force and check for each and every combination. It will take n^3.
+                                      -> We can use sliding window concept by using two pointer.
+                                      -> Further we can optimize sliding window concept.
+                                      -> Next we will use the hasmap or vector of length 256 indicating the values corresponding to char at string s.
+                                      -> In this case we will initialize the index of char at the vector eg: t[s[i]]=i, where s is string and t is vector.
+
+
+
+
+Day5: (LinkedList)
+
+25.Reverse a LinkedList : Try both iterative and recursive approach for the same.
+                          -> A slight and much more advanced variation is to reverse LL from a specific point in the list, which can be done as:
+                             Use iterative approach and use pointers to store the starting and end points of the portion of lsit to be reversed.
+                             There is a beautiful concept to do this problem discussed in the code section. Try to make diagram and learn accordingly.
+
+
+
+26. Find middle of LinkedList : Simple use two pointer slow ans fast and iterate fast as fast->next->next and slow as slow-> next.
+                                When fast will reach end the slow will reach at middle.
+
+
+27. Merge two sorted Linked List : -> Use two pointer approach while iterating over both the list.
+                                   -> The smaller value will simply point towards the bigger one and thus we will make a combined list using this method.
+
+
+28. Remove N-th node from back of LinkedList : -> First start with brute force while going till end and caluaulating the number of nodes in LL. After that we can just go to the nth node and delete it.
+                                              -> A much more optimized approach will be using two pointers fast and slow. First move fast till the n+1 value and diff bw fast and slow will be n. Now we will move till fast reaches end, in this way we can reach towards the one less to the nth from back node.
+                                                Now we can remove the nth node and all this is done in one single pass.
+
+29. Delete a given Node when a node is given. (0(1) solution) : Simply swap the values with the number which is next to it and in the end just delete the pointer to free memory.
+
+30. Add two numbers as LinkedList  : Simply use combination of maths by storing a count bit and adding when count >10.
+                                     Easily iterate over the both list while checking for the value and storing them in new LL by summing them;
+
+
+
+
+
+
 
